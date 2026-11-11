@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="Propuesta académica de página principal para Kafe Yana">
+        <title>Kafe Yana | Un buen café, un mejor momento</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- 1. FRANJA SUPERIOR -->
+        <div class="top">
+            <div class="wrap">CAFÉ, DESAYUNOS Y BUENOS MOMENTOS <span>BIENVENIDOS A KAFE YANA</span>
+            </div>
+        </div>
+        <!-- 2. CABECERA Y MENÚ DE NAVEGACIÓN -->
+        <header>
+            <nav class="wrap nav" aria-label="Navegación principal">
+                <a class="brand" href="#inicio">
+                    <span class="mark">KY</span>
+                    <span>KAFETERÍA<br>
+                        <b>YANA</b>
+                    </span>
+                </a>
+                <button class="menu-toggle" aria-expanded="false" aria-controls="navlinks">☰ <span class="sr-only">Abrir menú</span>
+                </button>
+                <div id="navlinks" class="navlinks">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#menu">Menú</a>
+                    <a href="#novedades">Novedades</a>
+                    <a href="#nosotros">Nosotros</a>
+                    <a href="#contacto">Contacto</a>
+                    <a href="compras.html">Mi carrito</a>
+                    <a href="iniciar-sesion.html">Iniciar sesión</a>
+                </div>
+                <a class="pill navbtn" href="#menu">Ver menú <span>↗</span>
+                </a>
+            </nav>
+        </header>
+        <main id="inicio">
+            <!-- 3. NOVEDADES: CARRUSEL DE ANUNCIOS -->
+            <section id="novedades" class="wrap hero" aria-label="Novedades">
+                <div class="carousel slide" id="novedadesCarousel" aria-roledescription="carrusel">
+                    <div class="carousel-inner">
+                        <article class="carousel-item active" data-index="0">
+                            <div class="hero-text">
+                                <span class="eyebrow">NOVEDADES / 01</span>
+                                <h1>Un buen café,<br>un mejor momento.</h1>
+                                <p>Un espacio para disfrutar lo simple, con café y algo delicioso para acompañar.</p>
+                                <a class="pill light" href="#menu">Explorar menú <span>↗</span>
+                                </a>
+                            </div>
+                            <div class="hero-img photo-0" role="img" aria-label="Café y pastelería"></div>
+                        </article>
+                        <article class="carousel-item" data-index="1">
+                            <div class="hero-text">
+                                <span class="eyebrow">NOVEDADES / 02</span>
+                                <h1>Desayunos para<br>empezar bien.</h1>
+                                <p>Disfruta una pausa con sabores preparados para compartir.</p>
+                                <a class="pill light" href="#menu">Ver desayunos <span>↗</span>
+                                </a>
+                            </div>
+                            <div class="hero-img photo-1" role="img" aria-label="Desayuno en la cafetería"></div>
+                        </article>
+                        <article class="carousel-item" data-index="2">
+                            <div class="hero-text">
+                                <span class="eyebrow">NOVEDADES / 03</span>
+                                <h1>Un espacio para<br>tus momentos.</h1>
+                                <p>Descubre Kafe Yana y encuentra un lugar para conversar y disfrutar.</p>
+                                <a class="pill light" href="#nosotros">Conócenos <span>↗</span>
+                                </a>
+                            </div>
+                            <div class="hero-img photo-2" role="img" aria-label="Ambiente de cafetería"></div>
+                        </article>
+                    </div>
+                    <div class="carousel-controls">
+                        <button id="previous" type="button" aria-label="Anuncio anterior">←</button>
+                        <button id="next" type="button" aria-label="Anuncio siguiente">→</button>
+                        <span id="count" aria-live="polite">01 / 03</span>
+                        <button id="pause" class="pause" type="button" aria-label="Pausar anuncios">Pausar</button>
+                    </div>
+                </div>
+            </section>
+            <!-- 4. BARRA DE INFORMACIÓN -->
+            <div class="ribbon">
+                <div class="wrap">
+                    <span>CAFÉ RECIÉN PREPARADO</span>
+                    <span>✦</span>
+                    <span>DESAYUNOS PARA COMPARTIR</span>
+                    <span>✦</span>
+                    <span>UN ESPACIO PARA TI</span>
+                </div>
+            </div>
+            <!-- 5. MENÚ Y TARJETAS DE PRODUCTOS -->
+            <section class="wrap section" id="menu">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow brown">NUESTRO MENÚ</span>
+                        <h2>Nuestros favoritos</h2>
+                        <p>Encuentra algo rico para cada momento.</p>
+                    </div>
+                    <a class="text-link" href="#productos">Explorar productos →</a>
+                </div>
+                <div class="ordenar-catalogo">
+                    <label for="orden-productos">Ordenar productos:</label>
+                    <select id="orden-productos" aria-label="Ordenar productos del catálogo">
+                        <option value="id">Orden original</option>
+                        <option value="nombre">Nombre (A-Z)</option>
+                        <option value="precio">Precio (menor a mayor)</option>
+                    </select>
+                </div>
+                <div id="productos" class="products">
+                    <article class="product" data-producto-id="1">
+                        <div class="product-img coffee" role="img" aria-label="Café"></div>
+                        <div class="product-body">
+                            <h3>Café expreso</h3>
+                            <p>Intenso y aromático</p>
+                            <strong>25 Bs</strong>
+                        </div>
+                    </article>
+                    <article class="product" data-producto-id="2">
+                        <div class="product-img coffee second" role="img" aria-label="Café americano"></div>
+                        <div class="product-body">
+                            <h3>Café americano</h3>
+                            <p>Suave y reconfortante</p>
+                            <strong>20 Bs</strong>
+                        </div>
+                    </article>
+                    <article class="product" data-producto-id="3">
+                        <div class="product-img breakfast" role="img" aria-label="Desayuno"></div>
+                        <div class="product-body">
+                            <h3>Desayuno americano</h3>
+                            <p>Una mañana completa</p>
+                            <strong>55 Bs</strong>
+                        </div>
+                    </article>
+                    <article class="product" data-producto-id="4">
+                        <div class="product-img breakfast second" role="img" aria-label="Desayuno"></div>
+                        <div class="product-body">
+                            <h3>Desayuno boliviano</h3>
+                            <p>Sabores de casa</p>
+                            <strong>40 Bs</strong>
+                        </div>
+                    </article>
+                </div>
+                <p class="note">Imágenes y precios de referencia para la propuesta académica.</p>
+                <a class="pill" href="compras.html">Ver mi carrito →</a>
+                <p id="aviso-productos" role="status" aria-live="polite"></p>
+            </section>
+            <!-- 7. INFORMACIÓN SOBRE KAFE YANA -->
+            <section class="wrap section story" id="nosotros">
+                <span class="eyebrow brown">CONÓCENOS</span>
+                <h2>Mucho más que café</h2>
+                <div class="feature">
+                    <div class="feature-img image-main" role="img" aria-label="Café en una mesa"></div>
+                    <div class="feature-card dark">
+                        <span class="eyebrow">NUESTRA HISTORIA</span>
+                        <h2>Un lugar para<br>compartir.</h2>
+                        <p>Queremos que cada visita sea una pausa agradable, acompañada de sabores que invitan a volver.</p>
+                        <a class="pill light" href="#contacto">Descubre más <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="feature reverse">
+                    <div class="feature-img image-breakfast" role="img" aria-label="Desayuno para compartir"></div>
+                    <div class="feature-card sand">
+                        <span class="eyebrow brown">SABOR PARA COMPARTIR</span>
+                        <h2>Cada momento<br>tiene su sabor.</h2>
+                        <p>Descubre nuestro menú y encuentra tu combinación favorita.</p>
+                        <a class="pill" href="#menu">Ver el menú <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- 8. INVITACIÓN A EXPLORAR EL MENÚ -->
+            <section class="wrap">
+                <div class="banner">
+                    <span class="eyebrow">UN MOMENTO PARA TI</span>
+                    <h2>Tu próxima pausa comienza aquí.</h2>
+                    <p>Explora Kafe Yana y descubre algo para disfrutar.</p>
+                    <a class="pill light" href="#menu">Explorar menú <span>↗</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+        <!-- 9. PIE DE PÁGINA -->
+        <footer id="contacto">
+            <div class="wrap foot">
+                <div>
+                    <a class="brand lightbrand" href="#inicio">
+                        <span class="mark">KY</span>
+                        <span>KAFETERÍA<br>
+                            <b>YANA</b>
+                        </span>
+                    </a>
+                    <p>Café y buenos momentos.</p>
+                </div>
+                <div>
+                    <b>EXPLORAR</b>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#menu">Menú</a>
+                    <a href="#novedades">Novedades</a>
+                </div>
+                <div>
+                    <b>CONTACTO</b>
+                    <p>Cochabamba, Bolivia</p>
+                    <p>Redes sociales</p>
+                </div>
+            </div>
+            <div class="wrap copyright">© 2026 Kafetería Yana · Propuesta académica</div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- 10. ARCHIVOS JAVASCRIPT -->
+        <script src="script.js"></script>
+        <script src="compras.js"></script>
+    </body>
+</html>

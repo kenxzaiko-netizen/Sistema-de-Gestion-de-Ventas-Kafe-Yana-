@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión | Kafetería Yana</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <main class="login-layout">
+        <section class="login-aside">
+            <a class="brand lightbrand" href="index.html"><span class="mark">KY</span><span>KAFETERÍA<br><b>YANA</b></span></a>
+            <h1>Un momento<br>para ti.</h1>
+            <img src="assets/foto0.png" alt="Café servido en una mesa">
+            <p>Tu café favorito comienza aquí.</p>
+        </section>
+        <section class="login-panel">
+            <a class="text-link" href="index.html">← Volver al inicio</a>
+            <div class="login-content">
+                <span class="eyebrow brown">BIENVENIDO DE NUEVO</span>
+                <h1>Inicia sesión</h1>
+                <p>Ingresa a tu cuenta o continúa como invitado.</p>
+                <form id="login-form">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" placeholder="nombre@correo.com" autocomplete="username" required>
+                    <label for="clave">Contraseña</label>
+                    <input type="password" id="clave" placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
+                    <button class="pill login-submit" type="submit">Iniciar sesión</button>
+                </form>
+                <p id="login-aviso" role="status" aria-live="polite">El inicio de sesión está en desarrollo. Puedes continuar como invitado.</p>
+                <div class="login-divider">o</div>
+                <a class="btn-outline guest-button" href="index.html">Continuar como invitado</a>
+            </div>
+        </section>
+    </main>
+    <script src="login.js"></script>
+</body>
+</html>

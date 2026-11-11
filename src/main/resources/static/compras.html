@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi carrito | Kafetería Yana</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="top"><div class="wrap">CAFÉ, DESAYUNOS Y BUENOS MOMENTOS</div></div>
+    <header>
+        <nav class="wrap nav" aria-label="Navegación principal">
+            <a class="brand" href="index.html"><span class="mark">KY</span><span>KAFETERÍA<br><b>YANA</b></span></a>
+            <div class="navlinks secondary-links"><a href="index.html">Inicio y menú</a><a href="iniciar-sesion.html">Iniciar sesión</a></div>
+        </nav>
+    </header>
+    <main class="wrap section compras" id="compras">
+        <span class="eyebrow brown">TU SELECCIÓN</span>
+        <h2>Registrar compra</h2>
+        <p>Agrega productos desde el menú y registra tu compra.</p>
+        <p><a class="text-link" href="index.html#menu">← Volver al menú</a></p>
+        <div class="compras-grid">
+            <div class="compra-box">
+                <h3>Tu carrito</h3>
+                <div id="carrito-lista"><p>Tu carrito está vacío.</p></div>
+                <p class="compra-total">Total: <strong id="total-compra">0,00 Bs</strong></p>
+                <form id="form-compra">
+                    <label for="cliente">Nombre del cliente</label>
+                    <input id="cliente" name="cliente" maxlength="100" required placeholder="Escribe tu nombre">
+                    <button class="pill" id="guardar-compra" type="submit">Registrar compra</button>
+                </form>
+                <p id="estado-compra" role="status" aria-live="polite"></p>
+            </div>
+            <div class="compra-box">
+                <div class="hist-head"><h3>Compras registradas</h3><button class="btn-outline" id="actualizar-historial" type="button">Actualizar</button></div>
+                <div id="historial" aria-live="polite"><p>Cargando compras…</p></div>
+            </div>
+        </div>
+    </main>
+    <script src="compras.js"></script>
+</body>
+</html>
