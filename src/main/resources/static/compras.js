@@ -55,41 +55,100 @@
         total.textContent = dinero(suma);
     }
 
+    // Filtros de la vista MVC; la ordenacion sigue siendo trabajo del patron Strategy en Java.
+    let categoriaActiva = 'Todas';
+    const categoriasPreferidas = ['Cafés', 'Postres', 'Bebidas', 'Desayunos completos', 'Salados', 'Otros'];
+    const iconos = { 'Cafés': '☕', 'Postres': '🍰', 'Bebidas': '🥤', 'Desayunos completos': '🍳', 'Salados': '🥪', 'Otros': '🍽️' };
+    const clases = { 'Cafés': 'cafe', 'Postres': 'postre', 'Bebidas': 'bebida', 'Desayunos completos': 'desayuno', 'Salados': 'salado', 'Otros': 'otro' };
+    const categoriaDe = p => String(p.categoria || 'Otros').trim() || 'Otros';
+
+    function pintarFiltros() {
+        const contenedor = document.querySelector('#filtros-categorias');
+        if (!contenedor) return;
+        const existentes = [...new Set(productos.map(categoriaDe))];
+        existentes.sort((a, b) => {
+            const ia = categoriasPreferidas.indexOf(a), ib = categoriasPreferidas.indexOf(b);
+            if (ia !== -1 && ib !== -1) return ia - ib;
+            if (ia !== -1) return -1;
+            if (ib !== -1) return 1;
+            return a.localeCompare(b, 'es');
+        });
+        if (categoriaActiva !== 'Todas' && !existentes.includes(categoriaActiva)) categoriaActiva = 'Todas';
+        contenedor.replaceChildren();
+        for (const categoria of ['Todas', ...existentes]) {
+            const boton = document.createElement('button');
+            boton.type = 'button';
+            boton.className = 'filtro-categoria' + (categoria === categoriaActiva ? ' activo' : '');
+            boton.dataset.categoria = categoria;
+            boton.textContent = categoria === 'Todas' ? 'Todos' : categoria;
+            boton.setAttribute('aria-pressed', String(categoria === categoriaActiva));
+            boton.addEventListener('click', () => { categoriaActiva = categoria; pintarFiltros(); pintarProductos(); });
+            contenedor.append(boton);
+        }
+    }
+
+    function pintarProductos() {
+        const contenedor = document.querySelector('#productos');
+        if (!contenedor) return;
+        const busqueda = (document.querySelector('#buscar-productos')?.value || '').trim().toLocaleLowerCase('es');
+        const visibles = productos.filter(p => {
+            const coincideCategoria = categoriaActiva === 'Todas' || categoriaDe(p) === categoriaActiva;
+            const contenido = (p.nombre + ' ' + (p.descripcion || '')).toLocaleLowerCase('es');
+            return coincideCategoria && (!busqueda || contenido.includes(busqueda));
+        });
+        contenedor.replaceChildren();
+        for (const producto of visibles) {
+            const categoria = categoriaDe(producto);
+            const tarjeta = document.createElement('article');
+            tarjeta.className = 'product';
+            tarjeta.dataset.productoId = String(producto.id);
+            const imagen = document.createElement('div');
+            imagen.className = 'product-img producto-ilustracion ilustracion-' + (clases[categoria] || 'otro');
+            imagen.setAttribute('role', 'img');
+            imagen.setAttribute('aria-label', categoria + ': ' + producto.nombre);
+            const emoji = document.createElement('span');
+            emoji.className = 'producto-emoji'; emoji.setAttribute('aria-hidden', 'true');
+            emoji.textContent = iconos[categoria] || '🍽️';
+            imagen.append(emoji);
+            const cuerpo = document.createElement('div'); cuerpo.className = 'product-body';
+            const etiqueta = document.createElement('span'); etiqueta.className = 'product-categoria'; etiqueta.textContent = categoria;
+            const nombre = document.createElement('h3'); nombre.textContent = producto.nombre;
+            const descripcion = document.createElement('p'); descripcion.textContent = producto.descripcion || 'Preparado con cariño en Kafe Yana';
+            const precio = document.createElement('strong'); precio.textContent = dinero(producto.precio_centavos);
+            const boton = document.createElement('button');
+            boton.className = 'btn-add'; boton.type = 'button'; boton.textContent = 'Agregar';
+            boton.setAttribute('aria-label', 'Agregar ' + producto.nombre + ' al carrito');
+            boton.addEventListener('click', () => {
+                carrito[producto.id] = Math.min(99, (Number(carrito[producto.id]) || 0) + 1);
+                guardarCarrito();
+                if (avisoProductos) avisoProductos.textContent = producto.nombre + ' agregado. Puedes abrir Mi carrito.';
+            });
+            cuerpo.append(etiqueta, nombre, descripcion, precio, boton);
+            tarjeta.append(imagen, cuerpo);
+            contenedor.append(tarjeta);
+        }
+        const contador = document.querySelector('#cantidad-productos');
+        if (contador) contador.textContent = visibles.length + ' producto(s) de ' + productos.length + ' en el catálogo';
+        const vacio = document.querySelector('#catalogo-vacio');
+        if (vacio) vacio.hidden = visibles.length > 0;
+    }
+
     async function cargarProductos() {
         try {
             const selector = document.querySelector('#orden-productos');
             const orden = selector ? selector.value : 'id';
             const respuesta = await fetch('/api/productos?orden=' + encodeURIComponent(orden));
-            if (!respuesta.ok) throw new Error();
+            if (!respuesta.ok) throw new Error('HTTP ' + respuesta.status);
             productos = await respuesta.json();
-            const contenedor = document.querySelector('#productos');
-            if (contenedor) {
-                // Conservamos las tarjetas originales y las reordenamos según la respuesta
-                // producida por la estrategia elegida en el backend Java.
-                for (const producto of productos) {
-                    const tarjeta = contenedor.querySelector('[data-producto-id="' + producto.id + '"]');
-                    if (!tarjeta) continue;
-                    const cuerpo = tarjeta.querySelector('.product-body');
-                    cuerpo.querySelector('h3').textContent = producto.nombre;
-                    cuerpo.querySelector('strong').textContent = dinero(producto.precio_centavos);
-                    cuerpo.querySelector('.btn-add')?.remove();
-                    const boton = document.createElement('button');
-                    boton.className = 'btn-add'; boton.type = 'button'; boton.textContent = 'Agregar';
-                    boton.setAttribute('aria-label', 'Agregar ' + producto.nombre + ' al carrito');
-                    boton.addEventListener('click', () => {
-                        carrito[producto.id] = Math.min(99, (Number(carrito[producto.id]) || 0) + 1);
-                        guardarCarrito();
-                        if (avisoProductos) avisoProductos.textContent = producto.nombre + ' agregado. Puedes abrir Mi carrito.';
-                    });
-                    cuerpo.append(boton);
-                    contenedor.append(tarjeta);
-                }
-            }
+            pintarFiltros();
+            pintarProductos();
             pintarCarrito();
         } catch (error) {
-            const mensaje = 'No se pudieron cargar los productos. Verifica que la aplicación Java esté iniciada.';
+            const mensaje = 'No se pudieron cargar los productos. Comprueba que el servidor esté activo y que hayas ejecutado ampliar_catalogo.sql.';
             if (avisoProductos) avisoProductos.textContent = mensaje;
             if (estado) estado.textContent = mensaje;
+            const contador = document.querySelector('#cantidad-productos');
+            if (contador) contador.textContent = 'Catálogo no disponible';
         }
     }
 
@@ -136,6 +195,8 @@
     if (actualizar) actualizar.addEventListener('click', cargarHistorial);
     const selectorOrden = document.querySelector('#orden-productos');
     if (selectorOrden) selectorOrden.addEventListener('change', cargarProductos);
+    const buscar = document.querySelector('#buscar-productos');
+    if (buscar) buscar.addEventListener('input', pintarProductos);
     cargarProductos();
     cargarHistorial();
 })();
