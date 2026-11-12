@@ -780,3 +780,38 @@ footer {
 .ordenar-catalogo { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 20px; }
 .ordenar-catalogo label { font-weight:600; }
 .ordenar-catalogo select { border:1px solid #bcb5ab; border-radius:8px; padding:8px 12px; background:white; color:#2b2826; }
+
+/* Catalogo dinamico por categoria, sin alterar el estilo original. */
+.catalogo-controles { display:flex; gap:22px; justify-content:space-between; align-items:center; flex-wrap:wrap; margin:16px 0 12px; }
+.catalogo-controles .ordenar-catalogo { margin:0; }
+.catalogo-buscar { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:600; }
+.catalogo-buscar input { background:white; color:#34251f; border:1px solid #bcb5ab; border-radius:9px; padding:10px 13px; min-width:230px; max-width:100%; }
+.filtros-categorias { display:flex; gap:9px; flex-wrap:wrap; margin:17px 0; }
+.filtro-categoria { border:1px solid #c4b2a5; background:#fff; color:#754431; border-radius:24px; padding:9px 17px; font-weight:600; cursor:pointer; }
+.filtro-categoria:hover { border-color:#754431; }
+.filtro-categoria.activo { background:#754431; border-color:#754431; color:white; }
+.catalogo-contador { color:#81746b; font-size:13px; margin:4px 0 0; }
+.catalogo-vacio { text-align:center; padding:32px; color:#81746b; background:#fff; border-radius:14px; }
+.products { margin-top:20px; }
+.product { box-shadow:0 3px 12px rgba(43,26,19,.04); }
+.product-body { display:flex; flex-direction:column; gap:6px; min-height:200px; }
+.product-categoria { color:#92593f; font-size:11px; text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.product-body p { min-height:40px; margin:3px 0 5px; }
+.product-body strong { display:block; margin-top:auto; }
+.product-body .btn-add { align-self:flex-start; margin-top:12px; }
+.producto-ilustracion { display:flex; align-items:center; justify-content:center; background-image:none; position:relative; }
+.producto-emoji { font-size:70px; line-height:1; filter:drop-shadow(0 8px 12px rgba(50,29,21,.15)); }
+.ilustracion-cafe { background:linear-gradient(135deg,#efe0cf,#d2aa87); }
+.ilustracion-postre { background:linear-gradient(135deg,#f8dfda,#ecc8bb); }
+.ilustracion-bebida { background:linear-gradient(135deg,#dcefe7,#acd9cb); }
+.ilustracion-desayuno { background:linear-gradient(135deg,#f6e8bf,#f2cf93); }
+.ilustracion-salado { background:linear-gradient(135deg,#f0d6b7,#d7ab7d); }
+.ilustracion-otro { background:linear-gradient(135deg,#e8e1dc,#cbc0b8); }
+@media(max-width:600px) {
+    .catalogo-controles, .catalogo-buscar { align-items:stretch; flex-direction:column; }
+    .catalogo-buscar input { width:100%; }
+    .filtros-categorias { gap:7px; }
+    .filtro-categoria { padding:8px 12px; font-size:13px; }
+    .producto-emoji { font-size:55px; }
+    .product-body { min-height:205px; }
+}
